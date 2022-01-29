@@ -55,7 +55,7 @@ def run():
     learning_rate = 0.0001
     initial_b = 0  # initial y-intercept guess
     initial_w = 0  # initial slope guess
-    num_iterations = 1000
+    num_iterations = 1000  # 更新的次数
     print("Starting gradient descent at b = {0}, w = {1}, error = {2}"
           .format(initial_b, initial_w,
                   compute_error_for_line_given_points(initial_b, initial_w, points))
@@ -66,16 +66,27 @@ def run():
           format(num_iterations, b, w,
                  compute_error_for_line_given_points(b, w, points))
           )
-    show(points)
+    show(points, b, w)
 
 
-def show(points):
-    [x, y] = points.shape
+# b = 0.08893651993741346, w = 1.4777440851894448, error = 112.61481011613473
+def show(points, b, w):
+    x = []
+    y = []
+    for i in range(0, len(points)):
+        x.append(points[i, 0])
+        y.append(points[i, 1])
     plt.scatter(x, y, c='g', marker='o', label="(x,y)")
     plt.title("scatter figure")
     plt.xlabel("time")
     plt.ylabel("speed")
     plt.legend(loc=1)
+
+    # 在指定的间隔内返回均匀间隔的数字。
+    # https://blog.csdn.net/You_are_my_dream/article/details/53493752
+    x1 = np.linspace(10, 100)
+    y1 = w * x1 + b
+    plt.plot(x1, y1, linewidth='2.0')
     plt.show()
 
 
